@@ -1,7 +1,41 @@
 .back{
-    background-image: url("../images/back.jpg");
+    background-color: #264653;
+}
+#logs {
+    background-color: #e76f51;
+}
+#add {
+    background-color: #2a9d8f;
+}
+#del {
+    background-color: #e9c46a;
+}
+#edit {
+    background-color: #f4a261;
+}
+
+#logs {
+    min-width: 15rem;
+    max-width: 15rem;
+    height: 10rem;
+}
+.section3 {
+    overflow-y: scroll;
+    height: 22rem;
 }
 .buttonSvg{
     width: 2rem;
     height: 2rem;
 }
+.card:hover{
+    transform: scale(1.05);
+    transition: 0.3s ease-out;
+}
+.heading {
+    font-size: 3rem;
+    font-weight: 700;
+    color: white;
+}
+
+
+ 
