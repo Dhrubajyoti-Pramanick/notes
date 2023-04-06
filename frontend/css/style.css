@@ -1,4 +1,7 @@
-body{
-    background-image: url("/frontend/images/back.jpg");
-    background-size: contain;
+.back{
+    background-image: url("../images/back.jpg");
+}
+.buttonSvg{
+    width: 2rem;
+    height: 2rem;
 }

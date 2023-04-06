@@ -58,7 +58,9 @@ export const getSingleNote = async (req, res) => {
 export const updateNote = async (req, res) => {
   try {
     const { id, title, content } = req.body;
-    const note = await notesSchema.findById(id);
+    const note = await notesSchema.findByIdAndUpdate(id, {
+      title : title, content : content
+    });
 
     if (note) {
       note.title = title || note.title;
@@ -77,9 +79,9 @@ export const updateNote = async (req, res) => {
 
 export const deleteNote = async (req, res) => {
   try {
-    console.log(req.body);
-    const { title, content, isImportant } = req.body;
-    const deleted = await notesSchema.findOneAndDelete({title : title, content : content});
+    console.log("body",req.body);
+    const { id } = req.body;
+    const deleted = await notesSchema.findByIdAndDelete(id);
     if (deleted) {
       res.status(200).json({
         success: true,
