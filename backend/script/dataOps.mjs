@@ -1,6 +1,6 @@
 import notesSchema from "./schema.mjs";
 
-export const createNote = async (req, res) => {
+export const createNote = async (req, res, next) => {
   try {
     console.log(req.body);
     const { title, content, isImportant } = req.body;
@@ -17,12 +17,12 @@ export const createNote = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
-    res.status(400).json({ message: error.message });
+    // res.status(400).json({ message: error.message });
+    next(error);
   }
 };
 
-export const getNotes = async (req, res) => {
+export const getNotes = async (req, res, next) => {
   try {
     const notes = await notesSchema.find({});
     if (notes) {
@@ -33,27 +33,30 @@ export const getNotes = async (req, res) => {
       });
     }
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    // res.status(400).json({ message: error.message });
+    next(error);
   }
 };
 
-export const getSingleNote = async (req, res) => {
+export const getSingleNote = async (req, res, next) => {
   try {
     const { id } = req.params;
     const note = await notesSchema.findById(id);
     if (note) {
       res.status(200).json({
+        status:200,
         success: true,
         message: "Note fetched successfully!",
         note,
       });
     }
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    next(error);
+    // res.status(400).json({ message: error.message });
   }
 };
 
-export const updateNote = async (req, res) => {
+export const updateNote = async (req, res, next) => {
   try {
     const { id, title, content } = req.body;
     const note = await notesSchema.findByIdAndUpdate(id, {
@@ -69,11 +72,12 @@ export const updateNote = async (req, res) => {
       });
     }
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    // res.status(400).json({ message: error.message });
+    next(error);
   }
 };
 
-export const deleteNote = async (req, res) => {
+export const deleteNote = async (req, res, next) => {
   try {
     console.log("body", req.body);
     const { id } = req.body;
@@ -86,7 +90,8 @@ export const deleteNote = async (req, res) => {
       });
     }
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    // res.status(400).json({ message: error.message });
+    next(error);
   }
 };
 

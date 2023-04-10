@@ -23,16 +23,21 @@
 </head>
 
 <body class="back">
-  <!-- section 1 -->
+  <!-- section 1  heading-->
   <nav class="navbar d-flex flex-column flex-lg-row justify-content-bewteen pe-lg-5">
-    <div class="heading offset-lg-4">Welcome to Notes App</div>
-    <button id="cross" class="btn"><i class="plus fa-solid fa-plus" style="color:white"
+    <div class="heading offset-lg-4 text-center">Welcome to Notes App</div>
+    <div>
+      <button id="dark" class="btn"><i class="dark fa-solid fa-moon" style="color:white"></i></button>
+      <button id="cross" class="btn"><i class="plus fa-solid fa-plus" style="color:white"
         onclick="visibility()"></i></button>
+        
+    </div>
+    
   </nav>
 
   <!-- section 2 Content -->
   <section class="section3 pb-5 col-10 offset-1 mt-5">
-    <div id="log" class="d-flex flex-wrap gap-3"></div>
+    <div id="log" class="d-flex flex-wrap gap-3 justify-content-center"></div>
   </section>
 
   <!-- section 3 Input -->
@@ -50,9 +55,8 @@
           <button id="close" class="close btn">DELETE</button>
           <button id="cancel" class="close btn">CANCEL</button>
         </div>
-        <div id="deleteMsg" class="text-center"></div>
       </div>
-
+      <div id="deleteMsg" class="text-center text-white fs-3"></div>
     </div>
   </section>
   <script src="./script/app.js"></script>
