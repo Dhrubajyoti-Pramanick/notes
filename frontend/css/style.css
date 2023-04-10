@@ -1,41 +1,148 @@
-.back{
-    background-color: #264653;
+.plus {
+    font-size: 2rem;
 }
+
+.back {
+    background-color: #006d77;
+}
+
 #logs {
-    background-color: #e76f51;
+    background-color: #e29578;
+    overflow: scroll;
 }
-#add {
-    background-color: #2a9d8f;
+
+#create,
+#edit2 {
+    background-color: #83c5be;
 }
+
+#create,
+#edit2 {
+    width: 5rem;
+}
+
 #del {
-    background-color: #e9c46a;
+    background-color: #ffddd2;
 }
-#edit {
-    background-color: #f4a261;
+
+#edit,
+#update {
+    background-color: #edf6f9;
+    ;
 }
 
 #logs {
     min-width: 15rem;
     max-width: 15rem;
-    height: 10rem;
+    height: 15rem;
 }
+
+#section2 {
+    backdrop-filter: blur(10px);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 5rem;
+}
+
+@media screen and (max-width: 991px) {
+    #section2 {
+        top: 8rem;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #section2 {
+        top: 12.5rem;
+    }
+}
+
 .section3 {
     overflow-y: scroll;
-    height: 22rem;
+    height: 33rem;
 }
-.buttonSvg{
+
+.buttonSvg {
     width: 2rem;
     height: 2rem;
 }
-.card:hover{
+
+.card:hover {
     transform: scale(1.05);
     transition: 0.3s ease-out;
 }
+
 .heading {
     font-size: 3rem;
     font-weight: 700;
     color: white;
 }
 
+#subTitle {
+    width: 8rem;
+    height: 3rem;
+    overflow-y: scroll;
+}
 
- 
+#subContent {
+    width: 12rem;
+    height: 4rem;
+    overflow: scroll;
+}
+
+#title,
+#content {
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+    outline: none;
+    color: white;
+}
+
+#title::placeholder,
+#content::placeholder {
+    color: white;
+}
+
+#content {
+    font-size: 1rem;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 5rem;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    backdrop-filter: blur(10px);
+}
+
+
+.modal-content {
+    background-color: #edf6f9;
+    outline: none;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 1rem;
+    overflow: scroll;
+    width: 20rem;
+
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

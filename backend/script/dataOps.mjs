@@ -3,8 +3,7 @@ import notesSchema from "./schema.mjs";
 export const createNote = async (req, res) => {
   try {
     console.log(req.body);
-    const { title, content,isImportant } = req.body;
-
+    const { title, content, isImportant } = req.body;
     let createNote = await notesSchema.create({
       title,
       content,
@@ -30,7 +29,7 @@ export const getNotes = async (req, res) => {
       res.status(200).json({
         success: true,
         message: "Notes fetched successfully!",
-        data:notes,
+        data: notes,
       });
     }
   } catch (error) {
@@ -42,7 +41,6 @@ export const getSingleNote = async (req, res) => {
   try {
     const { id } = req.params;
     const note = await notesSchema.findById(id);
-
     if (note) {
       res.status(200).json({
         success: true,
@@ -59,13 +57,11 @@ export const updateNote = async (req, res) => {
   try {
     const { id, title, content } = req.body;
     const note = await notesSchema.findByIdAndUpdate(id, {
-      title : title, content : content
+      title: title, content: content
     });
-
     if (note) {
       note.title = title || note.title;
       note.content = content || note.content;
-
       await note.save();
       res.status(200).json({
         success: true,
@@ -79,7 +75,7 @@ export const updateNote = async (req, res) => {
 
 export const deleteNote = async (req, res) => {
   try {
-    console.log("body",req.body);
+    console.log("body", req.body);
     const { id } = req.body;
     const deleted = await notesSchema.findByIdAndDelete(id);
     if (deleted) {
