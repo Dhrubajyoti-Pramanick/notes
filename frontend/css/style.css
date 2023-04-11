@@ -47,13 +47,25 @@
 
 @media screen and (max-width: 991px) {
     #section2 {
-        top: 8rem;
+        top: 4rem;
+    }
+    .plusMove{
+        position: fixed;
+        z-index: 1;
+        bottom: 10%;
+        right: 2%;
+    }
+    .darkMove{
+        position: fixed;
+        z-index: 1;
+        bottom: 18%;
+        right: 2%;
     }
 }
 
 @media screen and (max-width: 500px) {
     #section2 {
-        top: 12.5rem;
+        top: 9rem;
     }
 }
 
