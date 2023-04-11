@@ -1,4 +1,5 @@
 let flag = true;
+let togbtn = true;
 // modal
 let modal = document.getElementById('myModal');
 // When the user clicks anywhere outside of the modal, close it
@@ -6,7 +7,6 @@ document.getElementById("cancel").onclick = function (event) {
   modal.style.display = "none";
   document.getElementById("cross").innerHTML = `<i class="plus fa-solid fa-plus" style="color:white" onclick="visibility()"></i>`;
 }
-
 // fetch all notes
 async function getAllNotes() {
   const response = await fetch("http://localhost:4000/notes/get", {
@@ -18,18 +18,7 @@ async function getAllNotes() {
   console.log(response);
   console.log(response.data.length);
   for (let i = 0; i < response.data.length; i++) {
-    document.getElementById("log").innerHTML +=
-      `<div id="logs" class="card card-body text-white rounded-3 p-3 my-1">
-        <div class="d-flex justify-content-between">
-          <div id="subTitle" class="card-title fs-3">${response.data[i].title}</div>
-          <div>
-            <button id="del" class="buttonSvg btn p-0"><i class="fa-solid fa-trash"></i></button>
-            <button id="edit" class="buttonSvg btn p-0"><i class="fa-solid fa-pen"></i></button>
-          </div>
-        </div>
-        <div id="subContent" class="card-text">${response.data[i].content}</div>
-        <div id="ID" class="d-none">${response.data[i]._id}</div>
-    </div>`;
+    cards(response.data[i].title,response.data[i].content,response.data[i]._id);
     checkEdit();
     delNote();
   }
@@ -43,10 +32,8 @@ function visibility() {
     <div id="section2" class="col-10 col-md-3 d-flex flex-column p-3 gap-3 mt-5">
       <textarea type="text" id="title" placeholder="Enter Title"></textarea>
       <textarea id="content" placeholder="Enter Content"></textarea>
-      <div>
-        <button id="create" class="btn text-white" onclick="create()">CREATE</button>
-        <div id="message" class="text-white py-5 fs-4"></div>
-      </div>
+      <button id="create" class="btn text-white" onclick="create()">CREATE</button>
+      <div id="message" class="text-white py-5 fs-4"></div>
     </div>`;
     document.getElementById("cross").innerHTML = `<i class="plus fa-solid fa-xmark" style="color: #ffffff;" onclick="visibility()"></i>`;
     flag = false;
@@ -66,28 +53,9 @@ function create() {
     alert("Fill both the inputs");
   } else {
     // writing log of notes
-    document.getElementById("log").innerHTML += 
-    `<div id="logs" class="card card-body text-white rounded-3 p-3 my-1">
-      <div class="d-flex justify-content-between">
-        <div id="subTitle" class="card-title fs-3">${title}</div>
-        <div>
-          <button id="del" class="buttonSvg btn p-0"><i class="fa-solid fa-trash"></i></button>
-          <button id="edit" class="buttonSvg btn p-0"><i class="fa-solid fa-pen"></i></button>
-        </div>
-      </div>
-      <div id="subContent" class="card-text">${content}</div>
-      <div id="ID" class="d-none">1</div>
-    </div>`;
-    fetch("http://localhost:4000/notes/create", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-      body: JSON.stringify({
-        title: document.getElementById("title").value,
-        content: document.getElementById("content").value,
-      }),
-    }).then((response) => response.json());
+    console.log(togbtn);
+    cards(title,content,"1");
+    fetching("create","POST","",title,content);
     document.getElementById("message").innerHTML = "*Successfully Created";
     setTimeout(() => {
       if (flag === false) {
@@ -96,7 +64,9 @@ function create() {
         document.getElementById(
           "cross"
         ).innerHTML = `<i class="plus fa-solid fa-plus" style="color:white" onclick="visibility()"></i>`;
+        document.getElementById("log").innerHTML = '';
       }
+      getAllNotes();
     }, 1000);
   }
   checkEdit();
@@ -136,25 +106,14 @@ function visibility2(parent) {
   }
 }
 function edit(subTitle, subContent, subId) {
-  let title = document.getElementById("title");
-  let content = document.getElementById("content");
+  let title = document.getElementById("title").value;
+  let content = document.getElementById("content").value;
   if (title.value === "" || content.value === "") {
     alert("Fill both the inputs");
   } else {
-    subTitle.innerHTML = title.value;
-    subContent.innerHTML = content.value;
-    fetch("http://localhost:4000/notes/update", {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-      body: JSON.stringify({
-        title: document.getElementById("title").value,
-        content: document.getElementById("content").value,
-        id: subId.innerHTML,
-      }),
-    })
-      .then((response) => response.json())
+    subTitle.innerHTML = title;
+    subContent.innerHTML = content;
+    fetching("update","PUT",subId.innerHTML,title,content);
     if (flag === false) {
       setTimeout(() => {
         document.getElementById("form").innerHTML = ``;
@@ -178,7 +137,10 @@ function delNote() {
       console.log(parent);
       modal.style.display = "block";
       document.getElementById('close').onclick = () => {
-        check(parent);
+        let id = parent.lastElementChild.innerHTML;
+        parent.remove();
+        fetching("delete","DELETE",id,"","");
+        console.log("skipping");
         document.getElementById("deleteMsg").innerHTML = `*Successfully Deleted`;
         setTimeout(() => {
           modal.style.display = "none";
@@ -191,23 +153,21 @@ function delNote() {
     }
   }
 }
-function check(parent) {
-  let id = parent.lastElementChild.innerHTML;
-  parent.remove();
-  fetch("http://localhost:4000/notes/delete", {
-    method: "DELETE",
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-    },
-    body: JSON.stringify({
-      id: id,
-    }),
-  });
-}
+
 //dark mode toggle
-let togbtn = true;
 document.getElementById("dark").addEventListener('click',()=>{
+  theme();
+});
+function theme() {
   if(togbtn){
+    darkMode();
+    togbtn = false;
+  } else {
+    lightMode();
+    togbtn = true;
+  }
+}
+function darkMode(){
     document.querySelector('.back').style.backgroundColor = "#1f2421";
     document.querySelectorAll('.card').forEach((item)=>{
       item.style.backgroundColor = "#49a078";
@@ -219,9 +179,9 @@ document.getElementById("dark").addEventListener('click',()=>{
       item.style.backgroundColor = "#dce1de";
     });
     document.querySelector("#dark").innerHTML = `<i class="dark fa-solid fa-sun" style="color:white"></i>`;
-    togbtn = false;
-  } else {
-    document.querySelector('.back').style.backgroundColor = "#006d77";
+}
+function lightMode(){
+  document.querySelector('.back').style.backgroundColor = "#006d77";
     document.querySelectorAll('.card').forEach((item)=>{
       item.style.backgroundColor = "#e29578";
     }); 
@@ -232,7 +192,31 @@ document.getElementById("dark").addEventListener('click',()=>{
       item.style.backgroundColor = "#edf6f9";
     });
     document.querySelector("#dark").innerHTML = `<i class="dark fa-solid fa-moon" style="color:white"></i>`;
-    togbtn = true;
-  }
-  
-})
+}
+function fetching(route, method, id, title, content) {
+    fetch(`http://localhost:4000/notes/${route}`, {
+      method: `${method}`,
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify({
+        id : id,
+        title: title,
+        content: content,
+      }),
+    }).then((response) => response.json());
+}
+function cards(title, content, id) {
+  document.getElementById("log").innerHTML +=
+      `<div id="logs" class="card card-body text-white rounded-3 p-3 my-1">
+        <div class="d-flex justify-content-between">
+          <div id="subTitle" class="card-title fs-3">${title}</div>
+          <div>
+            <button id="del" class="buttonSvg btn p-0"><i class="fa-solid fa-trash"></i></button>
+            <button id="edit" class="buttonSvg btn p-0"><i class="fa-solid fa-pen"></i></button>
+          </div>
+        </div>
+        <div id="subContent" class="card-text">${content}</div>
+        <div id="ID" class="d-none">${id}</div>
+    </div>`;
+}

@@ -1,10 +1,10 @@
 import express, { response } from "express";
 import cors from "cors";
-import routes from "./routes.mjs";
-import { connection } from "./config.mjs";
+import routes from "./routes.js";
+import {connection} from "./connection.js";
+import { port } from './config.js';
 
 const app = express();
-const PORT = 4000;
 
 // parse json request body
 app.use(express.json());
@@ -24,9 +24,8 @@ app.use((error, req, res, next)=>{
     });
   }
 })
-app.listen(PORT, () => {
-  console.log(`Listening in ${PORT}`);
+app.listen(port, () => {
+  console.log(`Listening in ${port}`);
 });
 
 connection();
-

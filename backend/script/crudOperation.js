@@ -1,4 +1,4 @@
-import notesSchema from "./schema.mjs";
+import notesSchema from "./schema.js";
 
 export const createNote = async (req, res, next) => {
   try {
@@ -17,7 +17,6 @@ export const createNote = async (req, res, next) => {
       });
     }
   } catch (error) {
-    // res.status(400).json({ message: error.message });
     next(error);
   }
 };
@@ -33,26 +32,7 @@ export const getNotes = async (req, res, next) => {
       });
     }
   } catch (error) {
-    // res.status(400).json({ message: error.message });
     next(error);
-  }
-};
-
-export const getSingleNote = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const note = await notesSchema.findById(id);
-    if (note) {
-      res.status(200).json({
-        status:200,
-        success: true,
-        message: "Note fetched successfully!",
-        note,
-      });
-    }
-  } catch (error) {
-    next(error);
-    // res.status(400).json({ message: error.message });
   }
 };
 
@@ -72,7 +52,6 @@ export const updateNote = async (req, res, next) => {
       });
     }
   } catch (error) {
-    // res.status(400).json({ message: error.message });
     next(error);
   }
 };
@@ -90,7 +69,6 @@ export const deleteNote = async (req, res, next) => {
       });
     }
   } catch (error) {
-    // res.status(400).json({ message: error.message });
     next(error);
   }
 };
