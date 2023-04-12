@@ -4,6 +4,7 @@ import {
   getNotes,
   updateNote,
   deleteNote,
+  getSingleNote,
 } from "./crudOperation.js";
 
 const route = express.Router();
@@ -15,7 +16,8 @@ route.get("/", function (req, res) {
 route.post("/notes/create", createNote);
 route.get("/notes/get", getNotes);
 route.put("/notes/update", updateNote);
-route.delete("/notes/delete", deleteNote);
+route.delete("/notes/delete/:id", deleteNote);
+route.get("/notes/singleNote/:id", getSingleNote);
 
 export default route;
 

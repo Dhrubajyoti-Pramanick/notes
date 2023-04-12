@@ -56,20 +56,34 @@ export const updateNote = async (req, res, next) => {
   }
 };
 
-export const deleteNote = async (req, res, next) => {
+export const deleteNote = async(req, res, next) => {
   try {
-    console.log("body", req.body);
-    const { id } = req.body;
-    const deleted = await notesSchema.findByIdAndDelete(id);
+    const deleted = await notesSchema.findByIdAndDelete(req.params.id);
     if (deleted) {
       res.status(200).json({
         success: true,
         message: "Note Deleted successfully!",
         deleted
-      });
+      });``
     }
   } catch (error) {
     next(error);
+  }
+};
+export const getSingleNote = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const note = await notesSchema.findById(id);
+
+    if (note) {
+      res.status(200).json({
+        success: true,
+        message: "Note fetched successfully!",
+        note,
+      });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
   }
 };
 
