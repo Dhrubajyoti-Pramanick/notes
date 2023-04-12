@@ -41,33 +41,34 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    top: 5rem;
+    top: 9rem;
 }
-
-@media screen and (max-width: 991px) {
+.plusMove{
+    position: fixed;
+    z-index: 1;
+    bottom: 10%;
+    right: 2.5%;
+}
+.darkMove{
+    position: fixed;
+    z-index: 1;
+    bottom: 18%;
+    right: 2%;
+}
+@media screen and (min-width: 504px) {
     #section2 {
-        top: 4rem;
-    }
-    .plusMove{
-        position: fixed;
-        z-index: 1;
-        bottom: 10%;
-        right: 2%;
-    }
-    .darkMove{
-        position: fixed;
-        z-index: 1;
-        bottom: 18%;
-        right: 2%;
+        top : 4rem;
     }
 }
-
-@media screen and (max-width: 500px) {
-    #section2 {
-        top: 9rem;
+@media screen and (min-width: 768px) {
+    .plusMove {
+        bottom: 90%;
+    }
+    .darkMove {
+        bottom: 90%;
+        right: 7.5%;
     }
 }
-
 .section3 {
     overflow-y: scroll;
     height: 33rem;

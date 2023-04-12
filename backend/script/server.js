@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import routes from "./routes.js";
 import {connection} from "./connection.js";
-import { port } from './config.js';
+import { PORT } from './config.js';
 
 const app = express();
 
@@ -12,7 +12,7 @@ app.use(cors());
 app.use("/", routes);
 
 app.use((req, res, next) => {
-  next(new Error("page not found"));
+  next(new Error("Page not found"));
 });
 
 app.use((error, req, res, next)=>{
@@ -24,8 +24,8 @@ app.use((error, req, res, next)=>{
     });
   }
 })
-app.listen(port, () => {
-  console.log(`Listening in ${port}`);
+app.listen(PORT, () => {
+  console.log(`Listening in ${PORT}`);
 });
 
 connection();

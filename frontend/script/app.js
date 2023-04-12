@@ -1,5 +1,5 @@
 let flag = true;
-let togbtn = true;
+let toggleButton = true;
 let getId;
 let modal = document.getElementById('myModal');
 
@@ -60,24 +60,24 @@ function cards(title, content, id) {
       <div class="d-flex justify-content-between">
         <div id="subTitle" class="card-title fs-3">${title}</div>
         <div>
-          <button id="del" class="del buttonSvg btn p-0" onclick="del('${id}')"><i class="fa-solid fa-trash"></i></button>
+          <button id="del" class="del buttonSvg btn p-0" onclick="deleteCard('${id}')"><i class="fa-solid fa-trash"></i></button>
           <button id="edit" class="buttonSvg btn p-0" onclick="edit('${id}')"><i class="fa-solid fa-pen"></i></button>
         </div>
       </div>
       <div id="subContent" class="card-text">${content}</div>
       <div id="ID" class="d-none">${id}</div>
   </div>`;
-  let eCard = document.querySelectorAll('#logs');
-  let eDel = document.querySelectorAll('#del');
-  let eEdit = document.querySelectorAll('#edit');
-  if(togbtn === false) {
-    eCard.forEach((item)=>{
+  let eventCard = document.querySelectorAll('#logs');
+  let eventDel = document.querySelectorAll('#del');
+  let eventEdit = document.querySelectorAll('#edit');
+  if(toggleButton === false) {
+    eventCard.forEach((item)=>{
       item.classList.add('darkCard');
     })
-    eDel.forEach((item)=>{
+    eventDel.forEach((item)=>{
       item.classList.add('darkDelBtn');
     })
-    eEdit.forEach((item)=>{
+    eventEdit.forEach((item)=>{
       item.classList.add('darkEditBtn');
     })
   }
@@ -106,7 +106,7 @@ function create() {
   }
 }
 
-function del(id) {
+function deleteCard(id) {
   getId = id;
   modal.style.display = "block";
   document.getElementById('close').onclick = () => {
@@ -184,12 +184,12 @@ document.getElementById("dark").addEventListener('click', () => {
   theme();
 });
 function theme() {
-  if (togbtn) {
+  if (toggleButton) {
     darkMode();
-    togbtn = false;
+    toggleButton = false;
   } else {
     lightMode();
-    togbtn = true;
+    toggleButton = true;
   }
 }
 
