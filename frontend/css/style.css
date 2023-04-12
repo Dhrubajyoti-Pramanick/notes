@@ -1,4 +1,5 @@
-.plus,.dark {
+.plus,
+.dark {
     font-size: 2rem;
 }
 
@@ -12,6 +13,7 @@
     max-width: 15rem;
     height: 15rem;
 }
+
 .card {
     background-color: #e29578;
 }
@@ -43,32 +45,38 @@
     height: 100%;
     top: 9rem;
 }
-.plusMove{
+
+.plusMove {
     position: fixed;
     z-index: 1;
     bottom: 10%;
     right: 2.5%;
 }
-.darkMove{
+
+.darkMove {
     position: fixed;
     z-index: 1;
     bottom: 18%;
     right: 2%;
 }
+
 @media screen and (min-width: 504px) {
     #section2 {
-        top : 4rem;
+        top: 4rem;
     }
 }
+
 @media screen and (min-width: 768px) {
     .plusMove {
         bottom: 90%;
     }
+
     .darkMove {
         bottom: 90%;
         right: 7.5%;
     }
 }
+
 .section3 {
     overflow-y: scroll;
     height: 33rem;
@@ -139,7 +147,7 @@
 }
 
 #deleteMsg {
-    margin : -10% auto;
+    margin: -10% auto;
 }
 
 .close {

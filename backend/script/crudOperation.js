@@ -2,7 +2,6 @@ import notesSchema from "./schema.js";
 
 export const createNote = async (req, res, next) => {
   try {
-    console.log(req.body);
     const { title, content, isImportant } = req.body;
     let createNote = await notesSchema.create({
       title,
